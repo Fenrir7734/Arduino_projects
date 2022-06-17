@@ -1,0 +1,10 @@
+.pio
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+**/.vscode/**
+**/lib/**
+!*/lib/README*
+**/platformio.ini
+

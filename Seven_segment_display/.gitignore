@@ -9,3 +9,6 @@
 .vscode/launch.json
 .vscode/ipch
 .vscode/launch.json
+platformio.ini
+workspace.code-workspace
+lib/*
