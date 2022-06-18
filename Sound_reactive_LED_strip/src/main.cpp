@@ -8,12 +8,12 @@
 CRGB leds[LED_NUM];
 
 void setup() {
-    FastLED.addLeds<WS2812 ,LED_DATA_PIN, GRB>(leds, LED_NUM);
+  FastLED.addLeds<WS2812 ,LED_DATA_PIN, GRB>(leds, LED_NUM);
 }
 
 void loop() {
   int read = analogRead(MICROPHONE_PIN);
-  int level = (2048. / 550.) * read;
+  int level = (2048. / 500.) * read;
 
   if (level != 0) {
     int i = 0;
@@ -30,5 +30,10 @@ void loop() {
       i++;
     }
     FastLED.show();
-  } 
+  } else {
+    for (int i = 0; i < LED_NUM; i++) {
+      leds[i].setRGB(0, 0, 0);
+    }
+    FastLED.show();
+  }
 }
