@@ -3,7 +3,10 @@
 
 #define LED_PIN 13
 
-SoftwareSerial bluetoothSerial(2, 3);
+#define RX_PIN 2
+#define TX_PIN 3
+
+SoftwareSerial bluetoothSerial(RX_PIN, TX_PIN);
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);
