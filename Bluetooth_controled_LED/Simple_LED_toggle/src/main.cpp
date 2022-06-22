@@ -10,7 +10,6 @@ SoftwareSerial bluetoothSerial(RX_PIN, TX_PIN);
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);
-  Serial.begin(9600);
   bluetoothSerial.begin(9600);
 }
 
