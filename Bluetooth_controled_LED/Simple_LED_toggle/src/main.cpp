@@ -12,13 +12,13 @@ void setup() {
 }
 
 void loop() {
-  if (bluetoothSerial.available()) {
-    byte receivedData = bluetoothSerial.read();
+  if (bluetoothSerial.available()) {              // Check if something was send
+    byte receivedData = bluetoothSerial.read();   // Read it
 
-    if (receivedData == 48) {
-      digitalWrite(LED_PIN, LOW);
-    } else if (receivedData == 49) {
-      digitalWrite(LED_PIN, HIGH);
+    if (receivedData == 48) {                     // ASCII code for "0"
+      digitalWrite(LED_PIN, LOW);                 // Turn off LED
+    } else if (receivedData == 49) {              // ASCII code for "1"
+      digitalWrite(LED_PIN, HIGH);                // Turn on LED
     }
   }
   delay(200);
