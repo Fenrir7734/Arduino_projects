@@ -5,6 +5,6 @@
 .gcc-flags.json
 **/.vscode/**
 **/lib/**
-!*/lib/README*
+!**/lib/README*
 **/platformio.ini
 
