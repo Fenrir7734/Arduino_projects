@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
-#define COMMON_ANODE true
+#define COMMON_ANODE true                                  // true - common anode RGB LED, false - common cathode RGB LED 
 #define LED_RED_PIN 9
 #define LED_GREEN_PIN 10
 #define LED_BLUE_PIN 11
@@ -9,8 +9,8 @@
 #define RX_PIN 2
 #define TX_PIN 3
 
-#define START_SIGN 60
-#define END_SIGN 62
+#define START_SIGN 60                                      // ASCII code of begin delimeter
+#define END_SIGN 62                                        // ASCII code of end delimeter
 
 SoftwareSerial HC06(RX_PIN, TX_PIN);
 
@@ -18,6 +18,13 @@ uint8_t started = 1;
 char hex[6];
 uint8_t index = 0;
 
+// Function for finding the power of a given number.
+//
+// params:
+//    a       base
+//    b       exponent, for correct result it should be a positive integer
+// return:
+//    number a raised to the power of b
 unsigned long pow(int a, int b) {
   unsigned long result = 1;
 
@@ -27,6 +34,13 @@ unsigned long pow(int a, int b) {
   return result;
 }
 
+// Function for changing hexadecimal number to its decimal equivalent.
+// 
+// params:
+//    arr     array of chars containing representation of hexadecimal number
+//    size    size of array
+// return:
+//    decimal equivalent of given hexadecimal number
 unsigned long hexToDec(char* arr, uint8_t size) {
   unsigned long dec = 0;
 
@@ -47,6 +61,12 @@ unsigned long hexToDec(char* arr, uint8_t size) {
   return dec;
 }
 
+// Function that changes (or not) value of RGB parameter depending on type of LED.
+//
+// params:
+//    value   value of RGB parameter
+// return:
+//    RGB parameter value adjusted to the type of LED  
 int normalizeColorValue(int value) {
   if (COMMON_ANODE) {
     return 255 - value;
@@ -55,12 +75,16 @@ int normalizeColorValue(int value) {
   }
 }
 
+// Function that sets color of LED.
+//
+// params:
+//    hex    hexadecimal representation of RGB code
 void setColor(char* hex) {
   unsigned long dec = hexToDec(hex, index);
 
-  int red = (dec >> 16) & 0xFF;
-  int green = (dec >> 8) & 0xFF;
-  int blue = dec & 0xFF;
+  int red = (dec >> 16) & 0xFF;                            // extract red parameter from RGB code
+  int green = (dec >> 8) & 0xFF;                           // extract green parameter from RGB code
+  int blue = dec & 0xFF;                                   // extract blue parameter from RGB code
 
   analogWrite(LED_RED_PIN, normalizeColorValue(red));
   analogWrite(LED_GREEN_PIN, normalizeColorValue(green));
